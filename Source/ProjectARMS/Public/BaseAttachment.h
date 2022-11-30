@@ -19,8 +19,6 @@ public:
 		int32 attachmentId;
 	UPROPERTY(EditAnywhere)
 		UStaticMeshComponent* attachmentMesh;
-	UPROPERTY(EditAnywhere)
-		USceneComponent* ProjectileStart;
 
 protected:
 	// Called when the game starts or when spawned
