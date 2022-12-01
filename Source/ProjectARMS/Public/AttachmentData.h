@@ -9,16 +9,20 @@
  * 
  */
 USTRUCT(BlueprintType)
-struct PROJECTARMS_API FAttachmentData
+struct FAttachmentData
 {
 public:
-	GENERATED_BODY()
+	GENERATED_USTRUCT_BODY()
 	
-	UPROPERTY(BlueprintReadWrite)
-		std::string attachmentName;
-	UPROPERTY(BlueprintReadWrite)
-		UStaticMeshComponent* attachmentMesh;
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		FString attachmentName;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		bool usingSkelMesh;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		UStaticMesh* attachmentMesh;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		USkeletalMesh* attachmentSkelMesh;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		UMaterial* attachmentMaterial;
 	
 
