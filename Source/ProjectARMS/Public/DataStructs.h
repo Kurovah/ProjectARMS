@@ -4,13 +4,13 @@
 
 #include "CoreMinimal.h"
 #include "Engine/UserDefinedStruct.h"
-#include "LegAttachement.generated.h"
+#include "DataStructs.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class PROJECTARMS_API ULegAttachement : public UUserDefinedStruct
+class PROJECTARMS_API UDataStructs : public UUserDefinedStruct
 {
 	GENERATED_BODY()
 	

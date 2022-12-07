@@ -4,24 +4,23 @@
 
 #include "CoreMinimal.h"
 #include "Runtime/Engine/Classes/Engine/DataTable.h"
+#include "ArmStruct.generated.h"
+
 /**
  * 
  */
 USTRUCT(BlueprintType)
-struct FBodyAttachment
+struct FArmStruct : public FTableRowBase
 {
-	GENERATED_BODY()
+	GENERATED_USTRUCT_BODY()
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		FString attachmentName;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		bool usingSkelMesh;
+		UStaticMesh* attachmentMesh;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		UMaterial* attachmentMaterial;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		USkeletalMesh* attachmentMesh;
+		UTexture2D* attachmentTexture;
 
-	FBodyAttachment();
-	~FBodyAttachment();
+
 };

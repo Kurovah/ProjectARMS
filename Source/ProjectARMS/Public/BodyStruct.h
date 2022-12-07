@@ -3,25 +3,24 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "ArmAttachments.generated.h"
+#include "Runtime/Engine/Classes/Engine/DataTable.h"
+#include "BodyStruct.generated.h"
 
 /**
  * 
  */
 USTRUCT(BlueprintType)
-struct FArmAttachments
+struct FBodyStruct : public FTableRowBase
 {
-public:
 	GENERATED_USTRUCT_BODY()
 
+public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		FString attachmentName;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		UStaticMesh* attachmentMesh;
+		USkeletalMesh* attachmentMesh;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		UMaterial* attachmentMaterial;
-		
+		UTexture2D* attachmentTexture;
 
-	FArmAttachments();
-	~FArmAttachments();
+
 };
