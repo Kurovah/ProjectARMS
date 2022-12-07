@@ -16,7 +16,7 @@ struct FAttachmentDataContainer : public FTableRowBase
 {
 	GENERATED_USTRUCT_BODY()
 public:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = test)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		FAttachmentData data;
 
 	FAttachmentDataContainer();

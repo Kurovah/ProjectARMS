@@ -3,17 +3,16 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "AttachmentData.generated.h"
-
+#include "Runtime/Engine/Classes/Engine/DataTable.h"
 /**
  * 
  */
 USTRUCT(BlueprintType)
-struct FAttachmentData
+struct FBodyAttachment
 {
+	GENERATED_BODY()
+
 public:
-	GENERATED_USTRUCT_BODY()
-	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		FString attachmentName;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -21,8 +20,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		UMaterial* attachmentMaterial;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		UMeshComponent* attachmentMesh;
+		USkeletalMesh* attachmentMesh;
 
-	FAttachmentData();
-	~FAttachmentData();
+	FBodyAttachment();
+	~FBodyAttachment();
 };
