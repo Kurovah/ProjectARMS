@@ -14,14 +14,6 @@ class PROJECTARMS_API AMechPawn : public APawn
 public:
 	// Sets default values for this pawn's properties
 	AMechPawn();
-	UPROPERTY()
-		int32 LeftArm_id;
-	UPROPERTY()
-		int32 RightArm_id;
-	UPROPERTY()
-		int32 Legs_id;
-	UPROPERTY()
-		int32 Body_id;
 
 protected:
 	// Called when the game starts or when spawned
@@ -33,5 +25,28 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	//to contruct body
+	UPROPERTY(EditDefaultsOnly)
+		UStaticMeshComponent* PlayerMesh;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		int32 LeftArm_id;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		int32 RightArm_id;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		int32 Legs_id;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		int32 Body_id;
+
+	//
+
+	//battleStats
+	UPROPERTY(EditDefaultsOnly)
+		float Health;
+	UPROPERTY(EditDefaultsOnly)
+		float moveSpeed;
+	UPROPERTY(EditDefaultsOnly);
+		float dashLength;
+
 
 };
