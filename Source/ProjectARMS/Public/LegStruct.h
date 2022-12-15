@@ -18,9 +18,11 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		FString attachmentName;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		UStaticMesh* attachmentMesh;
+		USkeletalMesh* attachmentMesh;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		UTexture2D* attachmentTexture;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		float speedValue;
 
 
 };

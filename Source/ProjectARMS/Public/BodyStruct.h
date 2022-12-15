@@ -21,6 +21,10 @@ public:
 		USkeletalMesh* attachmentMesh;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		UTexture2D* attachmentTexture;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		float hpValue;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		float speedReduction;
 
 
 };

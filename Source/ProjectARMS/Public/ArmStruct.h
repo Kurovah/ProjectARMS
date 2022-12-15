@@ -18,9 +18,19 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		FString attachmentName;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		UStaticMesh* attachmentMesh;
+		USkeletalMesh* attachmentMeshL;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		USkeletalMesh* attachmentMeshR;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		UTexture2D* attachmentTexture;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		float damageValue;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		float coolDownTime;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		AActor* projectile;
+	
 
 
 };
