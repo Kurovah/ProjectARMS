@@ -12,13 +12,14 @@ public class ProjectARMS : ModuleRules
 			"Core", 
 			"CoreUObject", 
 			"Engine", 
-			"InputCore", 
-			"EnhancedInput" 
+			"InputCore",
+			"GameplayAbilities", 
+			"GameplayTags", 
+			"GameplayTasks",
+			"EnhancedInput"
 		});
 
-		PublicIncludePaths.AddRange(new string[] { 
-			"EnhancedInput/Public"
-		});
+		PublicIncludePaths.AddRange(new string[] { "EnhancedInput/Public" });
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 

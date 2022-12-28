@@ -4,10 +4,12 @@
 #include "ArmStruct.h"
 #include "LegStruct.h"
 #include "BodyStruct.h"
+#include "MechController.h"
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
 #include "MechPawn.generated.h"
+#include <Runtime/Engine/Classes/Components/SphereComponent.h>
 
 UCLASS()
 class PROJECTARMS_API AMechPawn : public APawn
@@ -33,8 +35,12 @@ public:
 	//to contruct body
 	UPROPERTY(EditDefaultsOnly)
 		UStaticMeshComponent* PlayerMesh;
+	UPROPERTY(EditDefaultsOnly)
+		USphereComponent* colliderSphere;
 
 	//battleStats
+	
+
 	UPROPERTY(EditDefaultsOnly)
 		float Health;
 	UPROPERTY(EditDefaultsOnly)
@@ -52,12 +58,14 @@ public:
 	FVector velocity;
 	float gravity;
 	bool isGrounded;
+	float horizontalAxis;
+	float jumpInput;
 
 	
 
 protected:
 	//void GenerateBody();
-	void HorizontalMovement(float AxisVal);
-	void VerticalMovement(float AxisVal);
+	void Movement(const struct FInputActionValue& actionValue);
+	void CheckGround();
 
 };

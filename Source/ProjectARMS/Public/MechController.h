@@ -14,8 +14,10 @@ class PROJECTARMS_API AMechController : public APlayerController
 	GENERATED_BODY()
 public:
 	virtual void SetupInputComponent() override;
+
 	UPROPERTY()
-		UInputMappingContext* mappingContext;
+		class UInputMappingContext* mappingContext;
 	UPROPERTY()
-		UInputAction* inputAction;
+		class UInputAction* pawnInput;
+
 };
