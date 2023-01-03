@@ -19,5 +19,7 @@ public:
 		class UInputMappingContext* mappingContext;
 	UPROPERTY()
 		class UInputAction* pawnInput;
+	UPROPERTY()
+		class UInputAction* pawnjumpInput;
 
 };

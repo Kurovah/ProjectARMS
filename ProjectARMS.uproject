@@ -9,12 +9,12 @@
 			"Type": "Runtime",
 			"LoadingPhase": "Default",
 			"AdditionalDependencies": [
-				"Engine"
+				"Engine",
+				"GameplayAbilities"
 			]
 		}
 	],
 	"Plugins": [
-
 		{
 			"Name": "EnhancedInput",
 			"Enabled": true

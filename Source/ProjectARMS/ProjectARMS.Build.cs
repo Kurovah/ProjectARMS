@@ -19,8 +19,10 @@ public class ProjectARMS : ModuleRules
 			"EnhancedInput"
 		});
 
-		PublicIncludePaths.AddRange(new string[] { "EnhancedInput/Public" });
-
+		PublicIncludePaths.AddRange(new string[]
+		{
+			"EnhancedInput/Public"
+		});
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 
 		// Uncomment if you are using Slate UI

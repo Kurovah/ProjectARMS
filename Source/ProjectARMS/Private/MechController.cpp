@@ -31,9 +31,15 @@ void AMechController::SetupInputComponent() {
 	pawnInput = NewObject<UInputAction>(this);
 	pawnInput->ValueType = EInputActionValueType::Axis2D;
 
-	//mapping
+	//mapping dir input
 	MapKey(mappingContext, pawnInput, EKeys::D, true, false);
 	MapKey(mappingContext, pawnInput, EKeys::A, false, false);
 	MapKey(mappingContext, pawnInput, EKeys::W, false, true);
 	MapKey(mappingContext, pawnInput, EKeys::S, true, true);
+
+
+	pawnjumpInput = NewObject<UInputAction>(this);
+	pawnjumpInput->ValueType = EInputActionValueType::Axis1D;
+	//mapping buttons
+	MapKey(mappingContext, pawnjumpInput, EKeys::SpaceBar);
 }
