@@ -3,9 +3,17 @@
 
 #include "MechCharacter.h"
 #include "MechController.h"
+
+
 #include "GameplayAbilities/Public/Abilities/GameplayAbility.h"
 #include "Kismet/GameplayStatics.h"
+
+#include "GameFramework/SpringArmComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "Components/CapsuleComponent.h"
+#include "Components/SkeletalMeshComponent.h"
+
+
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 
@@ -15,12 +23,25 @@ AMechCharacter::AMechCharacter()
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 	ASC = CreateDefaultSubobject<UAbilitySystemComponent>(TEXT("AbilitySystemComponent"));
+	SpringArmComp = CreateDefaultSubobject<USpringArmComponent>(TEXT("AimArm"));
+	LArmMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("LArm"));
+	RArmMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("RArm"));
+	LegsMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Legs"));
+
+	SpringArmComp->SetupAttachment(GetCapsuleComponent());
+	SpringArmComp->TargetArmLength = 20;
+
+	LArmMesh->SetupAttachment(GetMesh());
+	RArmMesh->SetupAttachment(GetMesh());
+	LegsMesh->SetupAttachment(GetMesh());
+	//ASC->InitAbilityActorInfo(this, this);
 }
 
 // Called when the game starts or when spawned
 void AMechCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+	GiveAbilities();
 }
 
 // Called every frame
@@ -40,6 +61,7 @@ void AMechCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 	check(EIC && FPC);
 	EIC->BindAction(FPC->pawnInput, ETriggerEvent::Triggered, this, &AMechCharacter::Movement);
 	EIC->BindAction(FPC->pawnjumpInput, ETriggerEvent::Started, this, &AMechCharacter::JumpAction);
+	EIC->BindAction(FPC->pawnLArmInput, ETriggerEvent::Started, this, &AMechCharacter::LeftArmAction);
 
 	ULocalPlayer* LocalPlayer = FPC->GetLocalPlayer();
 	UEnhancedInputLocalPlayerSubsystem* Subsystem =
@@ -50,9 +72,9 @@ void AMechCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 
 }
 
-void AMechCharacter::PossessedBy(AMechController* Controller)
+void AMechCharacter::PossessedBy(AController* controller)
 {
-	Super::PossessedBy(Controller);
+	Super::PossessedBy(controller);
 	ASC->InitAbilityActorInfo(this, this);
 }
 
@@ -72,11 +94,22 @@ void AMechCharacter::JumpAction(const FInputActionValue& ActionValue)
 	
 }
 
+void AMechCharacter::LeftArmAction(const FInputActionValue& ActionValue)
+{
+	ASC->TryActivateAbilityByClass(leftArmAbility);
+}
+
+void AMechCharacter::RightArmAction(const FInputActionValue& ActionValue)
+{
+}
+
 void AMechCharacter::GiveAbilities()
 {
 	//giving abilities
-	for (TSubclassOf<UGameplayAbility>& ability: mechAbilities) {
+	for (TSubclassOf<UMechAbility>& ability: mechAbilities) {
 		ASC->GiveAbility(FGameplayAbilitySpec(ability, ability.GetDefaultObject()->GetAbilityLevel()));
 	}
+
+	ASC->GiveAbility(FGameplayAbilitySpec(leftArmAbility, leftArmAbility.GetDefaultObject()->GetAbilityLevel()));
 }
 

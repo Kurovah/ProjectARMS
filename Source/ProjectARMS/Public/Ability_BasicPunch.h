@@ -3,15 +3,18 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Abilities/GameplayAbility.h"
+#include "MechAbility.h"
+#include "GameFramework/Character.h"
 #include "Ability_BasicPunch.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class PROJECTARMS_API UAbility_BasicPunch : public UGameplayAbility
+class PROJECTARMS_API UAbility_BasicPunch : public UMechAbility
 {
 	GENERATED_BODY()
-	
+
+public:
+		void ActivateAbility();
 };

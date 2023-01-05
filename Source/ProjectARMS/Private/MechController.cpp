@@ -40,6 +40,12 @@ void AMechController::SetupInputComponent() {
 
 	pawnjumpInput = NewObject<UInputAction>(this);
 	pawnjumpInput->ValueType = EInputActionValueType::Axis1D;
+	pawnLArmInput = NewObject<UInputAction>(this);
+	pawnLArmInput->ValueType = EInputActionValueType::Axis1D;
+	pawnRArmInput = NewObject<UInputAction>(this);
+	pawnRArmInput->ValueType = EInputActionValueType::Axis1D;
 	//mapping buttons
 	MapKey(mappingContext, pawnjumpInput, EKeys::SpaceBar);
+	MapKey(mappingContext, pawnLArmInput, EKeys::LeftMouseButton);
+	MapKey(mappingContext, pawnRArmInput, EKeys::RightMouseButton);
 }

@@ -4,6 +4,7 @@
 
 #include "AbilitySystemInterface.h"
 #include "AbilitySystemComponent.h"
+#include "MechAbility.h"
 #include "CoreMinimal.h"
 
 #include "GameFramework/Character.h"
@@ -24,20 +25,33 @@ protected:
 
 public:	
 	bool grounded;
+	UPROPERTY(EditDefaultsOnly)
+		class USpringArmComponent* SpringArmComp;
 
-	UPROPERTY()
+	UPROPERTY(EditDefaultsOnly)
+		class USkeletalMeshComponent* LArmMesh;
+	UPROPERTY(EditDefaultsOnly)
+		class USkeletalMeshComponent* RArmMesh;
+	UPROPERTY(EditDefaultsOnly)
+		class USkeletalMeshComponent* LegsMesh;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 		class UAbilitySystemComponent* ASC;
-
-	TArray<TSubclassOf<class UGameplayAbility>> mechAbilities;
+	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly)
+		TArray<TSubclassOf<class UMechAbility>> mechAbilities;
+	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly)
+		TSubclassOf <UMechAbility> leftArmAbility;
 
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-	void PossessedBy(AMechController* Controller);
+	virtual void PossessedBy(AController* controller) override;
 	void Movement(const struct FInputActionValue& ActionValue);
 	void JumpAction(const struct FInputActionValue& ActionValue);
+	void LeftArmAction(const struct FInputActionValue& ActionValue);
+	void RightArmAction(const struct FInputActionValue& ActionValue);
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override { return ASC; };
 	void GiveAbilities();
 };

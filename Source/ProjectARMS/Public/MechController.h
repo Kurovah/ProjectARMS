@@ -21,5 +21,9 @@ public:
 		class UInputAction* pawnInput;
 	UPROPERTY()
 		class UInputAction* pawnjumpInput;
+	UPROPERTY()
+		class UInputAction* pawnLArmInput;
+	UPROPERTY()
+		class UInputAction* pawnRArmInput;
 
 };
