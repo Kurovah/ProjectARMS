@@ -34,6 +34,8 @@ AMechCharacter::AMechCharacter()
 	LArmMesh->SetupAttachment(GetMesh());
 	RArmMesh->SetupAttachment(GetMesh());
 	LegsMesh->SetupAttachment(GetMesh());
+
+	GetMesh()->SetMasterPoseComponent(GetMesh());
 	//ASC->InitAbilityActorInfo(this, this);
 }
 
