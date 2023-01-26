@@ -3,15 +3,16 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Engine/UserDefinedStruct.h"
-#include "DataStructs.generated.h"
+#include "UObject/NoExportTypes.h"
+#include "CoreAttachment.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class PROJECTARMS_API UDataStructs : public UUserDefinedStruct
+class PROJECTARMS_API UCoreAttachment : public UObject
 {
 	GENERATED_BODY()
+
 	
 };

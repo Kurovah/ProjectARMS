@@ -3,10 +3,13 @@
 
 #include "MechCharacter.h"
 #include "MechController.h"
+#include "CoreAttachStruct.h"
 
 
 #include "GameplayAbilities/Public/Abilities/GameplayAbility.h"
 #include "Kismet/GameplayStatics.h"
+#include "UObject/ConstructorHelpers.h"
+#include "UObject/Class.h"
 
 #include "GameFramework/SpringArmComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
@@ -16,6 +19,8 @@
 
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
+#include <ProjectARMS/Public/ProjectArmsInstance.h>
+
 
 // Sets default values
 AMechCharacter::AMechCharacter()
@@ -35,14 +40,21 @@ AMechCharacter::AMechCharacter()
 	RArmMesh->SetupAttachment(GetMesh());
 	LegsMesh->SetupAttachment(GetMesh());
 
-	GetMesh()->SetMasterPoseComponent(GetMesh());
+	GetMesh()->SetLeaderPoseComponent(GetMesh());
 	//ASC->InitAbilityActorInfo(this, this);
+
+	/*static ConstructorHelpers::FObjectFinder<UDataTable> armTableObj(TEXT("DataTable'/Game/Datatables/Arms.Arms'"));
+	if (armTableObj.Succeeded())
+	{
+		armsTable = armTableObj.Object;
+	}*/
 }
 
 // Called when the game starts or when spawned
 void AMechCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+	ConstructBody();
 	GiveAbilities();
 }
 
@@ -113,5 +125,19 @@ void AMechCharacter::GiveAbilities()
 	}
 
 	ASC->GiveAbility(FGameplayAbilitySpec(leftArmAbility, leftArmAbility.GetDefaultObject()->GetAbilityLevel()));
+}
+
+void AMechCharacter::ConstructBody()
+{
+	//UProjectArmsInstance* gi = Cast<UProjectArmsInstance>(GetGameInstance());
+
+	/*UDataTable* legsTable;
+	UDataTable* coresTable;*/
+
+	/*auto armMeshes = armsTable->GetRowNames();
+	auto meshName = armMeshes[0];
+	auto armStruct = armsTable->FindRow<FArmAttachStruct>(meshName, "");
+
+	LArmMesh->SetSkeletalMesh(armStruct->mesh);*/
 }
 

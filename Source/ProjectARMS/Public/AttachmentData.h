@@ -9,20 +9,12 @@
  * 
  */
 USTRUCT(BlueprintType)
-struct FAttachmentData
+struct PROJECTARMS_API FAttachmentData
 {
+	GENERATED_BODY()
 public:
-	GENERATED_USTRUCT_BODY()
-	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		FString attachmentName;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		bool usingSkelMesh;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		UMaterial* attachmentMaterial;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		UMeshComponent* attachmentMesh;
-
-	FAttachmentData();
-	~FAttachmentData();
+	TTuple<int, bool> coreData = TTuple<int,bool>(0,false);
+	TTuple<int, bool> armLData = TTuple<int, bool>(0, false);
+	TTuple<int, bool> armRData = TTuple<int, bool>(0, false);
+	TTuple<int, bool> legData = TTuple<int, bool>(0, false);
 };

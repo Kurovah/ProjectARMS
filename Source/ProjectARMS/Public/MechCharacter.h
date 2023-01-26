@@ -41,6 +41,10 @@ public:
 		TArray<TSubclassOf<class UMechAbility>> mechAbilities;
 	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly)
 		TSubclassOf <UMechAbility> leftArmAbility;
+	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly)
+		TSubclassOf <UMechAbility> rightArmAbility;
+	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly)
+		TSubclassOf <UMechAbility> legsAbility;
 
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -54,4 +58,5 @@ public:
 	void RightArmAction(const struct FInputActionValue& ActionValue);
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override { return ASC; };
 	void GiveAbilities();
+	void ConstructBody();
 };
