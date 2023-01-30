@@ -8,22 +8,16 @@
 #include "CoreMinimal.h"
 
 #include "GameFramework/Character.h"
-#include "MechCharacter.generated.h"
+#include "MechPlayerCharacter.generated.h"
 
 UCLASS(Abstract)
-class PROJECTARMS_API AMechCharacter : public ACharacter, public IAbilitySystemInterface
+class PROJECTARMS_API AMechPlayerCharacter : public ACharacter, public IAbilitySystemInterface
 {
 	GENERATED_BODY()
 
 public:
 	// Sets default values for this character's properties
-	AMechCharacter();
-
-protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
-
-public:	
+	AMechPlayerCharacter();
 	bool grounded;
 	UPROPERTY(EditDefaultsOnly)
 		class USpringArmComponent* SpringArmComp;
@@ -38,14 +32,23 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 		class UAbilitySystemComponent* ASC;
 	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly)
-		TArray<TSubclassOf<class UMechAbility>> mechAbilities;
-	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly)
 		TSubclassOf <UMechAbility> leftArmAbility;
 	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly)
 		TSubclassOf <UMechAbility> rightArmAbility;
 	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly)
 		TSubclassOf <UMechAbility> legsAbility;
 
+	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly)
+		class UDataTable* armsTable;
+	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly)
+		class UDataTable* coreTable;
+	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly)
+		class UDataTable* legsTable;
+protected:
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
+
+public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
