@@ -19,6 +19,8 @@ public:
 	// Sets default values for this character's properties
 	AMechPlayerCharacter();
 	bool grounded;
+	int facing = 0;
+
 	UPROPERTY(EditDefaultsOnly)
 		class USpringArmComponent* SpringArmComp;
 
@@ -44,6 +46,9 @@ public:
 		class UDataTable* coreTable;
 	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly)
 		class UDataTable* legsTable;
+
+	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly)
+		class UMaterialInterface* parentMat;
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -62,4 +67,5 @@ public:
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override { return ASC; };
 	void GiveAbilities();
 	void ConstructBody();
+	void SetPeice(int type, int pieceindex);
 };
