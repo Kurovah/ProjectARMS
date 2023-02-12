@@ -105,6 +105,9 @@ void AMechPlayerCharacter::JumpAction(const FInputActionValue& ActionValue)
 	{
 		LaunchCharacter(FVector::UpVector * 500.0f, false, true);
 	}
+	else {
+		ASC->TryActivateAbilityByClass(legsAbility);
+	}
 
 }
 
@@ -131,6 +134,10 @@ void AMechPlayerCharacter::GiveAbilities()
 	if (rightArmAbility != NULL)
 	{
 		ASC->GiveAbility(FGameplayAbilitySpec(rightArmAbility, rightArmAbility.GetDefaultObject()->GetAbilityLevel()));
+	}
+	if (legsAbility != NULL)
+	{
+		ASC->GiveAbility(FGameplayAbilitySpec(legsAbility, legsAbility.GetDefaultObject()->GetAbilityLevel()));
 	}
 	
 }
@@ -203,6 +210,7 @@ void AMechPlayerCharacter::SetPeice(int type, int pieceindex)
 
 		peiceTex = legsTable->FindRow<FLegAttachStruct>(rowName, "")->texture;
 		peiceMesh = legsTable->FindRow<FLegAttachStruct>(rowName, "")->mesh;
+		legsAbility = legsTable->FindRow<FLegAttachStruct>(rowName, "")->ability;
 		break;
 	}
 
@@ -213,4 +221,5 @@ void AMechPlayerCharacter::SetPeice(int type, int pieceindex)
 		skelmeshtoChange->SetMaterial(0, DynMaterial);
 	}
 }
+
 
