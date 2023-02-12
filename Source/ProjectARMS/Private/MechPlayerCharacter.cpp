@@ -36,11 +36,8 @@ AMechPlayerCharacter::AMechPlayerCharacter()
 	SpringArmComp->TargetArmLength = 20;
 
 	LArmMesh->SetupAttachment(GetMesh());
-	LArmMesh->SetLeaderPoseComponent(GetMesh());
 	RArmMesh->SetupAttachment(GetMesh());
-	RArmMesh->SetLeaderPoseComponent(GetMesh());
 	LegsMesh->SetupAttachment(GetMesh());
-	LegsMesh->SetLeaderPoseComponent(GetMesh());
 }
 
 // Called when the game starts or when spawned
@@ -55,7 +52,14 @@ void AMechPlayerCharacter::BeginPlay()
 void AMechPlayerCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	RootComponent->Getroto
+	FRotator r = GetActorRotation();
+	if (facing == 1) {
+		r.Yaw = 0;
+	}
+	else {
+		r.Yaw = 180;
+	}
+	SetActorRotation(r);
 }
 
 // Called to bind functionality to input
@@ -107,11 +111,13 @@ void AMechPlayerCharacter::JumpAction(const FInputActionValue& ActionValue)
 void AMechPlayerCharacter::LeftArmAction(const FInputActionValue& ActionValue)
 {
 	ASC->TryActivateAbilityByClass(leftArmAbility);
+	abilitySide = -1;
 }
 
 void AMechPlayerCharacter::RightArmAction(const FInputActionValue& ActionValue)
 {
 	ASC->TryActivateAbilityByClass(rightArmAbility);
+	abilitySide = 1;
 }
 
 
@@ -121,6 +127,10 @@ void AMechPlayerCharacter::GiveAbilities()
 	if (leftArmAbility != NULL)
 	{
 		ASC->GiveAbility(FGameplayAbilitySpec(leftArmAbility, leftArmAbility.GetDefaultObject()->GetAbilityLevel()));
+	}
+	if (rightArmAbility != NULL)
+	{
+		ASC->GiveAbility(FGameplayAbilitySpec(rightArmAbility, rightArmAbility.GetDefaultObject()->GetAbilityLevel()));
 	}
 	
 }

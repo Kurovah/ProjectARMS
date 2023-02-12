@@ -20,9 +20,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		int CoreIndex;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		int ArmLIndex;
+		int ArmLIndex = 0;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		int ArmRIndex = -1;
+		int ArmRIndex = 0;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		int LegIndex;
 };

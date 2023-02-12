@@ -19,16 +19,23 @@ public:
 	// Sets default values for this character's properties
 	AMechPlayerCharacter();
 	bool grounded;
-	int facing = 0;
+
+
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+		float facing = -1;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+		float abilitySide = 1;
 
 	UPROPERTY(EditDefaultsOnly)
 		class USpringArmComponent* SpringArmComp;
 
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 		class USkeletalMeshComponent* LArmMesh;
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 		class USkeletalMeshComponent* RArmMesh;
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 		class USkeletalMeshComponent* LegsMesh;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
