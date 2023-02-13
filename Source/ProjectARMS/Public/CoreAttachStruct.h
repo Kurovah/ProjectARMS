@@ -21,6 +21,8 @@ public:
 		USkeletalMesh* mesh;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		UTexture2D* texture;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		float healthValue;
 };
 
 USTRUCT(BlueprintType)
@@ -53,4 +55,15 @@ public:
 		UTexture2D* texture;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		TSubclassOf <class UMechAbility> ability;
+};
+
+USTRUCT(BlueprintType)
+struct FHitContext 
+{
+	GENERATED_USTRUCT_BODY()
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		FVector sourcePosition;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		float damageValue;
 };

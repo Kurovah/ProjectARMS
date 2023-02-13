@@ -22,11 +22,19 @@ public:
 
 
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		float facing = -1;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 		float abilitySide = 1;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+		float armBlend = 0;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		float maxHealth;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		float health;
 
 	UPROPERTY(EditDefaultsOnly)
 		class USpringArmComponent* SpringArmComp;
@@ -75,4 +83,7 @@ public:
 	void GiveAbilities();
 	void ConstructBody();
 	void SetPeice(int type, int pieceindex);
+
+	UFUNCTION(BlueprintCallable , Category = "Character functions")
+		void ApplyHit(UPARAM(ref) struct FHitContext hitcontext);
 };

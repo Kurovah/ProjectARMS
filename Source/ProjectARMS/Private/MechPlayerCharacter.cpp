@@ -19,6 +19,7 @@
 
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
+#include <MathUtil.h>
 
 
 // Sets default values
@@ -60,6 +61,10 @@ void AMechPlayerCharacter::Tick(float DeltaTime)
 		r.Yaw = 180;
 	}
 	SetActorRotation(r);
+
+	if (armBlend > 0) {
+		armBlend -= .1f;
+	}
 }
 
 // Called to bind functionality to input
@@ -122,7 +127,6 @@ void AMechPlayerCharacter::RightArmAction(const FInputActionValue& ActionValue)
 	ASC->TryActivateAbilityByClass(rightArmAbility);
 	abilitySide = 1;
 }
-
 
 void AMechPlayerCharacter::GiveAbilities()
 {
@@ -187,6 +191,7 @@ void AMechPlayerCharacter::SetPeice(int type, int pieceindex)
 
 		peiceTex = coreTable->FindRow<FCoreAttachStruct>(rowName, "")->texture;
 		peiceMesh = coreTable->FindRow<FCoreAttachStruct>(rowName, "")->mesh;
+		maxHealth = health = coreTable->FindRow<FCoreAttachStruct>(rowName, "")->healthValue;
 		break;
 
 	case 1://arms//L
@@ -221,5 +226,17 @@ void AMechPlayerCharacter::SetPeice(int type, int pieceindex)
 		skelmeshtoChange->SetMaterial(0, DynMaterial);
 	}
 }
+
+void AMechPlayerCharacter::ApplyHit(UPARAM(ref) FHitContext hitcontext)
+{
+	FVector place = GetActorLocation();
+	FVector hitDir = place - hitcontext.sourcePosition;
+	hitDir.X = 0;
+	hitDir.Z = 0;
+	facing = hitDir.Y > 0 ? -1 : 1;
+	health -= hitcontext.damageValue;
+	LaunchCharacter(hitDir.GetSafeNormal() * 1000, true, true);
+}
+
 
 
