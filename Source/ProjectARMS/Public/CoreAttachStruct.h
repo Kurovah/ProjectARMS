@@ -66,4 +66,6 @@ public:
 		FVector sourcePosition;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		float damageValue;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		float launchValue;
 };
