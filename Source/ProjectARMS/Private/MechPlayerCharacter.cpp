@@ -118,14 +118,14 @@ void AMechPlayerCharacter::JumpAction(const FInputActionValue& ActionValue)
 
 void AMechPlayerCharacter::LeftArmAction(const FInputActionValue& ActionValue)
 {
-	ASC->TryActivateAbilityByClass(leftArmAbility);
 	abilitySide = -1;
+	ASC->TryActivateAbilityByClass(leftArmAbility);
 }
 
 void AMechPlayerCharacter::RightArmAction(const FInputActionValue& ActionValue)
 {
-	ASC->TryActivateAbilityByClass(rightArmAbility);
 	abilitySide = 1;
+	ASC->TryActivateAbilityByClass(rightArmAbility);
 }
 
 void AMechPlayerCharacter::GiveAbilities()

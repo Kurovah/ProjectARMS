@@ -3,18 +3,17 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "MechAbility.h"
 #include "Engine/DataAsset.h"
-#include "CoreAttachStruct.generated.h"
-
+#include "CoreAttachStruct.h"
+#include "AttachmentDataAsset.generated.h"
 
 /**
  * 
  */
-USTRUCT(BlueprintType)
-struct FCoreAttachStruct : public FTableRowBase
+UCLASS(BlueprintType)
+class PROJECTARMS_API UCoreAttachmentDataAsset : public UDataAsset
 {
-	GENERATED_USTRUCT_BODY()
+	GENERATED_BODY()
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		FString name = "defaultName";
@@ -22,14 +21,12 @@ public:
 		USkeletalMesh* mesh;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		UTexture2D* texture;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		float healthValue;
 };
 
-USTRUCT(BlueprintType)
-struct FArmAttachStruct : public FTableRowBase
+UCLASS(BlueprintType)
+class PROJECTARMS_API UArmAttachmentDataAsset : public UDataAsset
 {
-	GENERATED_USTRUCT_BODY()
+	GENERATED_BODY()
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		FString name = "defaultName";
@@ -43,10 +40,10 @@ public:
 		TSubclassOf < class UMechAbility> ability;
 };
 
-USTRUCT(BlueprintType)
-struct FLegAttachStruct : public FTableRowBase
+UCLASS(BlueprintType)
+class PROJECTARMS_API ULegAttachmentDataAsset : public UDataAsset
 {
-	GENERATED_USTRUCT_BODY()
+	GENERATED_BODY()
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		FString name = "defaultName";
@@ -58,28 +55,32 @@ public:
 		TSubclassOf <class UMechAbility> ability;
 };
 
-USTRUCT(BlueprintType)
-struct FHitContext 
+UCLASS(BlueprintType)
+class PROJECTARMS_API UAttachmentUnlockDataAsset : public UDataAsset
 {
-	GENERATED_USTRUCT_BODY()
+	GENERATED_BODY()
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		FVector sourcePosition;
+		TArray<struct FAttachmentUnlockStruct> coreData;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		float damageValue;
+		TArray<struct FAttachmentUnlockStruct> armData;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		float launchValue;
+		TArray<struct FAttachmentUnlockStruct> legData;
+
 };
 
-USTRUCT(BlueprintType)
-struct FAttachmentUnlockStruct
+UCLASS(BlueprintType)
+class PROJECTARMS_API UAttachConfig : public UDataAsset
 {
-	GENERATED_USTRUCT_BODY()
+	GENERATED_BODY()
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		class UDataAsset* attachmentData;
+		TArray<class UCoreAttachmentDataAsset*> core;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		bool hasBeenBought = true;
+		TArray<class UArmAttachmentDataAsset*> armL;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		float attachmentCost = 10;
+		TArray<class UArmAttachmentDataAsset*> armR;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		TArray<class ULegAttachmentDataAsset*> legs;
+
 };

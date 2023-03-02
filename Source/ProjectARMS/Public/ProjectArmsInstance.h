@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Engine/GameInstance.h"
 #include "Engine/DataTable.h"
+#include "AttachmentDataAsset.h"
 #include "ProjectArmsInstance.generated.h"
 
 
@@ -17,6 +18,7 @@ class PROJECTARMS_API UProjectArmsInstance : public UGameInstance
 	GENERATED_BODY()
 		
 public:
+	UProjectArmsInstance();
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		int CoreIndex;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -27,4 +29,10 @@ public:
 		int LegIndex;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		int currency;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		class UAttachConfig* attachmentConfiguration;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		class UAttachmentUnlockDataAsset* unlockData;
+	UFUNCTION(BlueprintCallable, Category = "GameInstance functions")
+		void AddCurrency(UPARAM(ref) float amount);
 };
