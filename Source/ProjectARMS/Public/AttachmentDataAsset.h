@@ -11,7 +11,7 @@
  * 
  */
 UCLASS(BlueprintType)
-class PROJECTARMS_API UCoreAttachmentDataAsset : public UDataAsset
+class PROJECTARMS_API UAttachmentDataAsset : public UDataAsset
 {
 	GENERATED_BODY()
 public:
@@ -23,34 +23,30 @@ public:
 		UTexture2D* texture;
 };
 
+
 UCLASS(BlueprintType)
-class PROJECTARMS_API UArmAttachmentDataAsset : public UDataAsset
+class PROJECTARMS_API UCoreAttachmentDataAsset : public UAttachmentDataAsset
+{
+	GENERATED_BODY()
+public:
+};
+
+UCLASS(BlueprintType)
+class PROJECTARMS_API UArmAttachmentDataAsset : public UAttachmentDataAsset
 {
 	GENERATED_BODY()
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		FString name = "defaultName";
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		USkeletalMesh* mesh;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		USkeletalMesh* mirroredMesh;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		UTexture2D* texture;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		TSubclassOf < class UMechAbility> ability;
 };
 
 UCLASS(BlueprintType)
-class PROJECTARMS_API ULegAttachmentDataAsset : public UDataAsset
+class PROJECTARMS_API ULegAttachmentDataAsset : public UAttachmentDataAsset
 {
 	GENERATED_BODY()
 public:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		FString name = "defaultName";
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		USkeletalMesh* mesh;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		UTexture2D* texture;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		TSubclassOf <class UMechAbility> ability;
 };
@@ -75,12 +71,12 @@ class PROJECTARMS_API UAttachConfig : public UDataAsset
 	GENERATED_BODY()
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		TArray<class UCoreAttachmentDataAsset*> core;
+		class UCoreAttachmentDataAsset* core;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		TArray<class UArmAttachmentDataAsset*> armL;
+		class UArmAttachmentDataAsset* armL;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		TArray<class UArmAttachmentDataAsset*> armR;
+		class UArmAttachmentDataAsset* armR;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		TArray<class ULegAttachmentDataAsset*> legs;
+		class ULegAttachmentDataAsset* legs;
 
 };

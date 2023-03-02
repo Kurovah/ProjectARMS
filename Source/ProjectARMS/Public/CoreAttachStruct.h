@@ -77,7 +77,7 @@ struct FAttachmentUnlockStruct
 	GENERATED_USTRUCT_BODY()
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		class UDataAsset* attachmentData;
+		class UAttachmentDataAsset* attachmentData;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		bool hasBeenBought = true;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
