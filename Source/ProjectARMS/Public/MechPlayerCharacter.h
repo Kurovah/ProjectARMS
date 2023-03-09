@@ -5,6 +5,7 @@
 #include "AbilitySystemInterface.h"
 #include "AbilitySystemComponent.h"
 #include "MechAbility.h"
+#include "AttachmentDataAsset.h"
 #include "CoreMinimal.h"
 
 #include "GameFramework/Character.h"
@@ -18,9 +19,6 @@ class PROJECTARMS_API AMechPlayerCharacter : public ACharacter, public IAbilityS
 public:
 	// Sets default values for this character's properties
 	AMechPlayerCharacter();
-	bool grounded;
-
-
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		float facing = -1;
@@ -35,6 +33,9 @@ public:
 		float maxHealth;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		float health;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		bool canAct = true;
 
 	UPROPERTY(EditDefaultsOnly)
 		class USpringArmComponent* SpringArmComp;
@@ -83,6 +84,7 @@ public:
 	void GiveAbilities();
 	void ConstructBody();
 	void SetPeice(int type, int pieceindex);
+	void SetPieceNew(int type, class UAttachmentDataAsset* attachmentConfig);
 
 	UFUNCTION(BlueprintCallable , Category = "Character functions")
 		void ApplyHit(UPARAM(ref) struct FHitContext hitcontext);

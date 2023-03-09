@@ -4,6 +4,7 @@
 #include "MechPlayerCharacter.h"
 #include "MechController.h"
 #include "CoreAttachStruct.h"
+#include "AttachmentDataAsset.h"
 
 #include "ProjectArmsInstance.h"
 #include "GameplayAbilities/Public/Abilities/GameplayAbility.h"
@@ -148,21 +149,27 @@ void AMechPlayerCharacter::GiveAbilities()
 
 void AMechPlayerCharacter::ConstructBody()
 {
-	int armRIndex, armLIndex, legsIndex, coreIndex;
 	UProjectArmsInstance* GI = Cast<UProjectArmsInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
 	if (GI)
 	{
-		// Do Something
-		armLIndex = GI->ArmLIndex;
-		armRIndex = GI->ArmRIndex;
-		coreIndex = GI->CoreIndex;
-		legsIndex = GI->LegIndex;
+		//// Do Something
+		//armLIndex = GI->ArmLIndex;
+		//armRIndex = GI->ArmRIndex;
+		//coreIndex = GI->CoreIndex;
+		//legsIndex = GI->LegIndex;
 
-		//set the peices
-		SetPeice(0, coreIndex);
-		SetPeice(1, armLIndex);
-		SetPeice(2, armRIndex);
-		SetPeice(3, legsIndex);
+		////set the peices
+		//SetPeice(0, coreIndex);
+		//SetPeice(1, armLIndex);
+		//SetPeice(2, armRIndex);
+		//SetPeice(3, legsIndex);
+
+		auto Data = GI->attachmentConfiguration;
+		SetPieceNew(0, Data->core);
+		SetPieceNew(1, Data->armL);
+		SetPieceNew(2, Data->armR);
+		SetPieceNew(3, Data->legs);
+
 	}
 }
 
@@ -225,6 +232,59 @@ void AMechPlayerCharacter::SetPeice(int type, int pieceindex)
 		DynMaterial->SetTextureParameterValue("BaseTex", peiceTex);
 		skelmeshtoChange->SetMaterial(0, DynMaterial);
 	}
+}
+
+void AMechPlayerCharacter::SetPieceNew(int type, class UAttachmentDataAsset* attachmentConfig)
+{
+	USkeletalMeshComponent* meshToChange = NULL;
+	USkeletalMesh* mesh = NULL;
+
+	UTexture2D* peiceTex = NULL;
+	UMaterialInstanceDynamic* DynMaterial = UMaterialInstanceDynamic::Create(parentMat, this);
+
+	UCoreAttachmentDataAsset* cData = NULL;
+	UArmAttachmentDataAsset* aLData = NULL;
+	UArmAttachmentDataAsset* aRData = NULL;
+	ULegAttachmentDataAsset* lData = NULL;
+
+	switch (type) {
+	case 0://core
+		meshToChange = GetMesh();
+		cData = (UCoreAttachmentDataAsset*)attachmentConfig;
+		mesh = cData->mesh;
+		peiceTex = cData->texture;
+		break;
+
+	case 1://armL
+		meshToChange = LArmMesh;
+		aLData = (UArmAttachmentDataAsset*)attachmentConfig;
+		mesh = aLData->mesh;
+		peiceTex = aLData->texture;
+		leftArmAbility = aLData->ability;
+		break;
+
+	case 2://armR
+		meshToChange = RArmMesh;
+		aRData = (UArmAttachmentDataAsset*)attachmentConfig;
+		mesh = aRData->mirroredMesh;
+		peiceTex = aRData->texture;
+		rightArmAbility = aRData->ability;
+		break;
+
+	case 3://legs
+		meshToChange = LegsMesh;
+		lData = (ULegAttachmentDataAsset*)attachmentConfig;
+		mesh = lData->mesh;
+		peiceTex = lData->texture;
+		break;
+	}
+
+	if (mesh != NULL) {
+		meshToChange->SetSkeletalMesh(mesh);
+		DynMaterial->SetTextureParameterValue("BaseTex", peiceTex);
+		meshToChange->SetMaterial(0, DynMaterial);
+	}
+	
 }
 
 void AMechPlayerCharacter::ApplyHit(UPARAM(ref) FHitContext hitcontext)

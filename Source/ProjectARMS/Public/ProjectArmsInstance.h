@@ -28,11 +28,11 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		int LegIndex;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		int currency;
+		float currency = 0;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		class UAttachConfig* attachmentConfiguration;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		class UAttachmentUnlockDataAsset* unlockData;
 	UFUNCTION(BlueprintCallable, Category = "GameInstance functions")
-		void AddCurrency(UPARAM(ref) float amount);
+		void AddCurrency(UPARAM() float amount);
 };
