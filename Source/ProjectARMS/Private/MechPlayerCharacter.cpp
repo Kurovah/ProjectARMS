@@ -119,12 +119,14 @@ void AMechPlayerCharacter::JumpAction(const FInputActionValue& ActionValue)
 
 void AMechPlayerCharacter::LeftArmAction(const FInputActionValue& ActionValue)
 {
+	GetCharacterMovement()->Velocity.Set(0, 0, 0);
 	abilitySide = -1;
 	ASC->TryActivateAbilityByClass(leftArmAbility);
 }
 
 void AMechPlayerCharacter::RightArmAction(const FInputActionValue& ActionValue)
 {
+	GetCharacterMovement()->Velocity.Set(0, 0, 0);
 	abilitySide = 1;
 	ASC->TryActivateAbilityByClass(rightArmAbility);
 }
@@ -296,6 +298,7 @@ void AMechPlayerCharacter::ApplyHit(UPARAM(ref) FHitContext hitcontext)
 	facing = hitDir.Y > 0 ? -1 : 1;
 	health -= hitcontext.damageValue;
 	LaunchCharacter(hitDir.GetSafeNormal() * 1000, true, true);
+	
 }
 
 
