@@ -97,6 +97,9 @@ void AMechPlayerCharacter::PossessedBy(AController* controller)
 
 void AMechPlayerCharacter::Movement(const FInputActionValue& ActionValue)
 {
+	if (!canAct)
+		return;
+
 	FVector2D Input = ActionValue.Get<FInputActionValue::Axis2D>();
 	AddMovementInput(FVector::RightVector * Input.X, 2.0f, true);
 	if (Input.X != 0) {
@@ -112,23 +115,30 @@ void AMechPlayerCharacter::JumpAction(const FInputActionValue& ActionValue)
 		LaunchCharacter(FVector::UpVector * 500.0f, false, true);
 	}
 	else {
-		ASC->TryActivateAbilityByClass(legsAbility);
+		if(canAct)
+			ASC->TryActivateAbilityByClass(legsAbility);
 	}
 
 }
 
 void AMechPlayerCharacter::LeftArmAction(const FInputActionValue& ActionValue)
 {
-	GetCharacterMovement()->Velocity.Set(0, 0, 0);
-	abilitySide = -1;
-	ASC->TryActivateAbilityByClass(leftArmAbility);
+	if (canAct) {
+		GetCharacterMovement()->Velocity.Set(0, 0, 0);
+		abilitySide = -1;
+		ASC->TryActivateAbilityByClass(leftArmAbility);
+	}
+	
 }
 
 void AMechPlayerCharacter::RightArmAction(const FInputActionValue& ActionValue)
 {
-	GetCharacterMovement()->Velocity.Set(0, 0, 0);
-	abilitySide = 1;
-	ASC->TryActivateAbilityByClass(rightArmAbility);
+	if (canAct) {
+		GetCharacterMovement()->Velocity.Set(0, 0, 0);
+		abilitySide = 1;
+		ASC->TryActivateAbilityByClass(rightArmAbility);
+	}
+	
 }
 
 void AMechPlayerCharacter::GiveAbilities()
