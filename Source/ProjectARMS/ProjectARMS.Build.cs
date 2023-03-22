@@ -16,12 +16,13 @@ public class ProjectARMS : ModuleRules
 			"GameplayAbilities", 
 			"GameplayTags", 
 			"GameplayTasks",
-			"EnhancedInput"
-		});
+			"EnhancedInput",
+            "Niagara"
+        });
 
 		PublicIncludePaths.AddRange(new string[]
 		{
-			"EnhancedInput/Public"
+			//"EnhancedInput/Public"
 		});
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 

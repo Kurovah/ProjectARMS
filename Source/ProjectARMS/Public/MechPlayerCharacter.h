@@ -11,6 +11,9 @@
 #include "GameFramework/Character.h"
 #include "MechPlayerCharacter.generated.h"
 
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FKillDelegate)
+
 UCLASS(Abstract)
 class PROJECTARMS_API AMechPlayerCharacter : public ACharacter, public IAbilitySystemInterface
 {
@@ -23,10 +26,10 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		float facing = -1;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		float abilitySide = 1;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		float armBlend = 0;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -37,8 +40,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		bool canAct = true;
 
-	UPROPERTY(EditDefaultsOnly)
-		class USpringArmComponent* SpringArmComp;
+	UPROPERTY(EditAnywhere)
+		class UNiagaraSystem* deathParticles;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 		class USkeletalMeshComponent* LArmMesh;
@@ -85,6 +88,11 @@ public:
 	void ConstructBody();
 	void SetPeice(int type, int pieceindex);
 	void SetPieceNew(int type, class UAttachmentDataAsset* attachmentConfig);
+	void KillCharacter();
+
+
+	UPROPERTY(BlueprintAssignable)
+	FKillDelegate KillDelegate;
 
 	UFUNCTION(BlueprintCallable , Category = "Character functions")
 		void ApplyHit(UPARAM(ref) struct FHitContext hitcontext);

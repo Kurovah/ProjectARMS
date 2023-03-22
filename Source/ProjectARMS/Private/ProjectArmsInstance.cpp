@@ -21,3 +21,8 @@ void UProjectArmsInstance::AddCurrency(UPARAM(ref) float amount)
 {
 	currency += amount;
 }
+
+void UProjectArmsInstance::Winstage()
+{
+	WinStageDelegate.Broadcast();
+}

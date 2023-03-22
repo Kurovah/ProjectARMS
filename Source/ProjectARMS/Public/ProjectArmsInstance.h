@@ -12,6 +12,8 @@
 /**
  * 
  */
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FWinDelegate)
+
 UCLASS()
 class PROJECTARMS_API UProjectArmsInstance : public UGameInstance
 {
@@ -35,4 +37,8 @@ public:
 		class UAttachmentUnlockDataAsset* unlockData;
 	UFUNCTION(BlueprintCallable, Category = "GameInstance functions")
 		void AddCurrency(UPARAM() float amount);
+	UFUNCTION(BlueprintCallable, Category = "GameInstance functions")
+		void Winstage();
+	UPROPERTY(BlueprintAssignable)
+	FWinDelegate WinStageDelegate;
 };

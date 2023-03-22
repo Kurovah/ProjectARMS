@@ -11,6 +11,8 @@
 #include "Kismet/GameplayStatics.h"
 #include "UObject/ConstructorHelpers.h"
 #include "UObject/Class.h"
+#include "NiagaraFunctionLibrary.h"
+#include "NiagaraComponent.h"
 
 #include "GameFramework/SpringArmComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
@@ -29,13 +31,9 @@ AMechPlayerCharacter::AMechPlayerCharacter()
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 	ASC = CreateDefaultSubobject<UAbilitySystemComponent>(TEXT("AbilitySystemComponent"));
-	SpringArmComp = CreateDefaultSubobject<USpringArmComponent>(TEXT("AimArm"));
 	LArmMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("LArm"));
 	RArmMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("RArm"));
 	LegsMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Legs"));
-
-	SpringArmComp->SetupAttachment(GetCapsuleComponent());
-	SpringArmComp->TargetArmLength = 20;
 
 	LArmMesh->SetupAttachment(GetMesh());
 	RArmMesh->SetupAttachment(GetMesh());
@@ -97,14 +95,15 @@ void AMechPlayerCharacter::PossessedBy(AController* controller)
 
 void AMechPlayerCharacter::Movement(const FInputActionValue& ActionValue)
 {
-	if (!canAct)
-		return;
 
 	FVector2D Input = ActionValue.Get<FInputActionValue::Axis2D>();
-	AddMovementInput(FVector::RightVector * Input.X, 2.0f, true);
-	if (Input.X != 0) {
-		facing = Input.X;
+	if (canAct) {
+		AddMovementInput(FVector::RightVector * Input.X, 2.0f, true);
+		if (Input.X != 0) {
+			facing = Input.X;
+		}
 	}
+	
 }
 
 void AMechPlayerCharacter::JumpAction(const FInputActionValue& ActionValue)
@@ -115,8 +114,7 @@ void AMechPlayerCharacter::JumpAction(const FInputActionValue& ActionValue)
 		LaunchCharacter(FVector::UpVector * 500.0f, false, true);
 	}
 	else {
-		if(canAct)
-			ASC->TryActivateAbilityByClass(legsAbility);
+		ASC->TryActivateAbilityByClass(legsAbility);
 	}
 
 }
@@ -288,6 +286,7 @@ void AMechPlayerCharacter::SetPieceNew(int type, class UAttachmentDataAsset* att
 		lData = (ULegAttachmentDataAsset*)attachmentConfig;
 		mesh = lData->mesh;
 		peiceTex = lData->texture;
+		legsAbility = lData->ability;
 		break;
 	}
 
@@ -299,16 +298,25 @@ void AMechPlayerCharacter::SetPieceNew(int type, class UAttachmentDataAsset* att
 	
 }
 
+void AMechPlayerCharacter::KillCharacter()
+{
+	UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), deathParticles, GetActorLocation());
+	KillDelegate.Broadcast();
+}
+
 void AMechPlayerCharacter::ApplyHit(UPARAM(ref) FHitContext hitcontext)
 {
 	FVector place = GetActorLocation();
 	FVector hitDir = place - hitcontext.sourcePosition;
 	hitDir.X = 0;
-	hitDir.Z = 0;
+	hitDir.Z = hitcontext.launchValue / 2;
 	facing = hitDir.Y > 0 ? -1 : 1;
-	health -= hitcontext.damageValue;
+	health -= 1;
 	LaunchCharacter(hitDir.GetSafeNormal() * 1000, true, true);
 	
+	if (health <= 0)
+		KillCharacter();
+
 }
 
 
