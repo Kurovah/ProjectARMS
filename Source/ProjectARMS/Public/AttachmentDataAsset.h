@@ -21,6 +21,8 @@ public:
 		USkeletalMesh* mesh;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		UTexture2D* texture;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		EAttachmentType attachType;
 };
 
 
@@ -51,6 +53,7 @@ public:
 		TSubclassOf <class UMechAbility> ability;
 };
 
+
 UCLASS(BlueprintType)
 class PROJECTARMS_API UAttachmentUnlockDataAsset : public UDataAsset
 {
@@ -62,6 +65,9 @@ public:
 		TArray<struct FAttachmentUnlockStruct> armData;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		TArray<struct FAttachmentUnlockStruct> legData;
+
+	UFUNCTION(BlueprintCallable)
+		void UnlockAttachment(int listIndex, int index);
 
 };
 

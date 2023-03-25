@@ -72,7 +72,7 @@ public:
 };
 
 USTRUCT(BlueprintType)
-struct FAttachmentUnlockStruct
+struct FAttachmentUnlockStruct : public FTableRowBase
 {
 	GENERATED_USTRUCT_BODY()
 public:
@@ -82,4 +82,12 @@ public:
 		bool hasBeenBought = true;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		float attachmentCost = 10;
+};
+
+UENUM(BlueprintType)
+enum class EAttachmentType : uint8
+{
+	Core UMETA(DisplayName = "Core"),
+	Arms UMETA(DisplayName = "Arms"),
+	Legs UMETA(DisplayName = "Legs")
 };

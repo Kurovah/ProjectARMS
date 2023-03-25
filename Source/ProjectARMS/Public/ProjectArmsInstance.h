@@ -35,10 +35,17 @@ public:
 		class UAttachConfig* attachmentConfiguration;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		class UAttachmentUnlockDataAsset* unlockData;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		class UDataTable* unlockDataTable;
 	UFUNCTION(BlueprintCallable, Category = "GameInstance functions")
 		void AddCurrency(UPARAM() float amount);
 	UFUNCTION(BlueprintCallable, Category = "GameInstance functions")
 		void Winstage();
+	UFUNCTION(BlueprintCallable, Category = "GameInstance functions")
+		void UnlockAttachement(UPARAM() FString attachmentName);
+	UFUNCTION(BlueprintCallable, Category = "GameInstance functions")
+		bool GetAttachmentUnlocked(UPARAM() FString attachmentName);
+
 	UPROPERTY(BlueprintAssignable)
 	FWinDelegate WinStageDelegate;
 };
