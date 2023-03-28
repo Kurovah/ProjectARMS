@@ -34,8 +34,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		class UAttachConfig* attachmentConfiguration;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		class UAttachmentUnlockDataAsset* unlockData;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		class UDataTable* unlockDataTable;
 	UFUNCTION(BlueprintCallable, Category = "GameInstance functions")
 		void AddCurrency(UPARAM() float amount);
